@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      <h:form>
+			<h1>list of Users</h1>
+			<h:dataTable value="#{msgManagementBean.allUsers}" var="c"
+				border="2">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="name" />
+					</f:facet>
+					<h:outputText value="#{c.lastName}" />
+				</h:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Message" />
+					</f:facet>
+					<h:commandButton action="#{msgManagementBean.doAddMessage(c)}"
+						value="sendMessage/cancel">
+					</h:commandButton>
+				</p:column>
+			</h:dataTable>
+					<h1>list of Messages</h1>
+			<h:dataTable value="#{msgManagementBean.allMessages}" var="c"
+				border="2">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="userSender" />
+					</f:facet>
+					<h:outputText value="#{c.userSender.username}" />
+				</h:column>
+		       <h:column>
+					<f:facet name="header">
+						<h:outputText value="userReceiver" />
+					</f:facet>
+					<h:outputText value="#{c.userReceiver.username}" />
+				</h:column>
+				 <h:column>
+					<f:facet name="header">
+						<h:outputText value="Object" />
+					</f:facet>
+					<h:outputText value="#{c.object_message}" />
+				</h:column>
+				 <h:column>
+					<f:facet name="header">
+						<h:outputText value="Text" />
+					</f:facet>
+					<h:outputText value="#{c.text}" />
+				</h:column>
+				<h:column id="c3">
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:commandButton
+						action="#{msgManagementBean.changeVisibility()}" value="select">
+						<f:setPropertyActionListener value="#{c}"
+							target="#{msgManagementBean.messageselected}"></f:setPropertyActionListener>
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+			<h:commandButton action="#{msgManagementBean.changeVisibility()}"
+				value="new Message" />
+				<h:panelGrid columns="2" border="2"
+				rendered="#{msgManagementBean.formVisibility}">
+				<h:outputText value="text" />
+				<h:inputText value="#{msgManagementBean.messageselected.text}" />
+				<h:outputText value="object" />
+				<h:inputText value="#{msgManagementBean.messageselected.object_message}" />
+				<h:outputText value="Sender name" />
+				<h:selectOneMenu value="#{msgManagementBean.userselected}"
+					converter="uc">
+					<f:selectItem itemLabel="please select" />
+					<f:selectItems value="#{identity.dofindAllUser()}" var="t"
+						itemLabel="#{t.username}" itemValue="#{t}" />
+				</h:selectOneMenu>
+				<h:outputText value="Receiver name" />
+				<h:selectOneMenu value="#{msgManagementBean.userselected}"
+					converter="uc">
+					<f:selectItem itemLabel="please select" />
+					<f:selectItems value="#{identity.dofindAllUser()}" var="t"
+						itemLabel="#{t.username}" itemValue="#{t}" />
+				</h:selectOneMenu>
+				
+				<h:commandButton
+					action="#{msgManagementBean.doAddMessage(c)}"
+					value="save or update" />
+				
+			</h:panelGrid>
+			</h:form>
+</html>

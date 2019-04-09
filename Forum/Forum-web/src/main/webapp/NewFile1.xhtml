@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/Front_template/Template.xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+    
+	 >
+	
+	<ui:define name="pageTitle">Contents</ui:define>
+	
+	
+	<ui:define name="pageContent">
+		<h:form id="form">
+	
+	<h:dataTable value="#{identity.user}" var="c" >
+				<h:column filterBy="#{c.username}">
+					<f:facet name="header">
+						<h:outputText value="username" />
+					</f:facet>
+					<h:outputText value="#{c.username}" />
+				</h:column>
+				<h:column filterBy="#{c.password}">
+					<f:facet name="header">
+						<h:outputText value="passworrd" />
+					</f:facet>
+					<h:outputText value="#{c.password}" />
+				</h:column>
+				<h:column filterBy="#{c.email}">
+					<f:facet name="header">
+						<h:outputText value="email" />
+					</f:facet>
+					<h:outputText value="#{c.email}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="" />
+					</f:facet>
+					<h:form>
+							<h:commandButton
+						action="#{identity.changeVisibility()}" value="UpdateProfile">
+						<f:setPropertyActionListener value="#{c}"
+							target="#{identity.userselected}"></f:setPropertyActionListener>
+					</h:commandButton>
+					</h:form>
+				</h:column>
+</h:dataTable>
+	<h:commandButton action="#{identity.changeVisibility()}"/>
+			<h:panelGrid columns="2" border="2"
+				rendered="#{identity.formVisibility}">
+				<h:outputText value="username" />
+				<h:inputText value="#{identity.userselected.username}" />
+				<h:outputText value="password" />
+				<h:inputSecret value="#{identity.userselected.password}" />
+				<h:outputText value="email" />
+				<h:inputText value="#{identity.userselected.email}" />
+				<h:commandButton
+					action="#{identity.doSaveOrUpdateUser()}"
+					value="save or update" />
+			</h:panelGrid>
+
+</h:form>
+	</ui:define>
+
+
+</ui:composition>

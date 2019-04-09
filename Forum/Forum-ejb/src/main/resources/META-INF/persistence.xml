@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="Forum-ejb">
+		<jta-data-source>java:jboss/datasources/FORUMDS</jta-data-source>
+		<class>Entities.Award</class>
+		<class>Entities.AwardId</class>
+		<class>Entities.Cast</class>
+		<class>Entities.Comment</class>
+		<class>Entities.CommentId</class>
+		<class>Entities.Content</class>
+		<class>Entities.FC</class>
+		<class>Entities.FCId</class>
+		<class>Entities.Favorites</class>
+		<class>Entities.Message</class>
+		<class>Entities.MessageId</class>
+		<class>Entities.Rating</class>
+		<class>Entities.RatingId</class>
+		<class>Entities.User</class>
+		
+		
+		
+		
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+		</properties>
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      template="/Front_template/Template.xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrought"
+         xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      
+      <ui:define name="pageTitle">User</ui:define>
+     <ui:define name="pageHeader"><h2>Client session</h2></ui:define> 
+  
+     <ui:define name="sideBarMenu">
+ 
+      </ui:define>
+      <ui:define name="pageContent">
+      <h2>Send Message</h2>
+         <h:form rendered="#{identity.logged}">	
+				<h:panelGrid>
+				<h:outputText value="Send To" style="color: black;"/>
+					<p:selectOneMenu value="#{msgManagementBean.userselected}"
+					converter="uc">
+					<f:selectItem itemLabel="please select" />
+					<f:selectItems value="#{userBean.users}" var="t" 
+						itemLabel="#{t.username}" itemValue="#{t}" />
+				</p:selectOneMenu>
+				
+			    
+				<h:outputText value="Object" />
+				<p:inputText value="#{msgManagementBean.objet}" />
+				<h:outputText value="Text" />
+				<p:inputTextarea value="#{msgManagementBean.messageselected}"  />
+				<p:commandButton
+					action="#{msgManagementBean.doAddMessage(msgManagementBean.messageselected,msgManagementBean.objet,msgManagementBean.userselected)}"
+					value="send" />
+				</h:panelGrid>
+		</h:form>
+
+ <h2>Messages Received</h2>
+ <h:form rendered="#{identity.logged}">		
+ 	<p:dataTable value="#{msgManagementBean.allMessages}" var="c">
+ 			
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="usersender" />
+					</f:facet>
+					<h:outputText value="#{c.userSender.username}" />
+				</p:column>
+				 	<p:column id="c2">
+					<f:facet name="header">
+						<h:outputText value="Object" />
+					</f:facet>
+					<h:outputText value="#{c.object_message}" />
+					</p:column>
+						<p:column id="c3">
+					<f:facet name="header">
+						<h:outputText value="Text" />
+					</f:facet>
+					<h:outputText value="#{c.text}" />
+					</p:column>
+ 	</p:dataTable>
+ </h:form>
+ 
+  <h2>Messages Sended</h2>
+ <h:form rendered="#{identity.logged}">		
+ 	<p:dataTable value="#{msgManagementBean.messagebyReceiver}" var="c" >
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="userreceiver" />
+					</f:facet>
+					<h:outputText value="#{c.userReceiver.username}" />
+				</p:column>
+				 	<p:column id="c2">
+					<f:facet name="header">
+						<h:outputText value="Object" />
+					</f:facet>
+					<h:outputText value="#{c.object_message}" />
+					</p:column>
+						<p:column id="c3">
+					<f:facet name="header">
+						<h:outputText value="Text" />
+					</f:facet>
+					<h:outputText value="#{c.text}" />
+					</p:column>
+ 	</p:dataTable>
+ </h:form>
+	</ui:define>
+	<ui:define name="footerPage">
+	<div id="footer">
+<p>Copyright &copy; 2016-2017 ESPRIT | <a href="#">EX MECHINA</a></p>
+</div>
+	</ui:define>
+	
+  </ui:composition>    
+      

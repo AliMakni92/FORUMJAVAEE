@@ -1,0 +1,3 @@
+grant Principal sercives2.zaPrincipal "User" {
+   permission sercives2.myPermission "test";
+};

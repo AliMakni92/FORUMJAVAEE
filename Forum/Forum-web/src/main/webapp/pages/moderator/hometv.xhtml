@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      template="/template/template.xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrought"
+         xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      
+      <ui:define name="pageTitle">User</ui:define>
+     <ui:define name="pageHeader"><h2>Client session</h2></ui:define> 
+      <ui:define name="menuHeader">
+             <div id="menus">
+  <ul id="topmenu">
+<li  class="active"><a href="/Forum-web/pages/user/home.jsf">Home</a>
+</li>
+<li><a href="#">Profile</a>
+</li>
+<li><a href="/Forum-web/pages/user/sendMessage.jsf">My Messages</a>
+</li>
+<li><f:facet name="options">
+					<h:outputText value="Logged in as #{identity.user.lastName}" />
+					<p:commandButton action="#{identity.logout()}"
+						class="submit btn btn-default pull-left" value="Logout"
+						icon="ui-icon-extlink" />
+				</f:facet>
+				
+<a href="/Forum-web/login.jsf" >Disconnect</a>
+
+</li>
+
+</ul>
+</div>
+
+ <f:facet name="options">
+					<h:outputText value="Logged in as #{identity.user.lastName}" />
+					<p:commandButton action="#{identity.logout()}"
+						class="submit btn btn-default pull-left" value="Logout"
+						icon="ui-icon-extlink" />
+				</f:facet>
+   </ui:define>  
+     <ui:define name="sideBarMenu">
+    <h:form rendered="#{identity.logged}">
+	    <h:panelGrid columns="2">
+			<h:outputText value="Logged in as #{identity.user.username}" />
+			<p:commandButton action="#{identity.logout()}" ajax="false"
+				value="Logout" />
+		</h:panelGrid>
+		</h:form>
+      </ui:define>
+      <ui:define name="pageContent">
+      <h2>My Profile</h2>
+         <h:form rendered="#{identity.logged}">
+			
+			
+			<h:dataTable value="#{identity.user}" var="c" >
+				<h:column filterBy="#{c.username}">
+					<f:facet name="header">
+						<h:outputText value="username" />
+					</f:facet>
+					<h:outputText value="#{c.username}" />
+				</h:column>
+				<h:column filterBy="#{c.password}">
+					<f:facet name="header">
+						<h:outputText value="passworrd" />
+					</f:facet>
+					<h:outputText value="#{c.password}" />
+				</h:column>
+				<h:column filterBy="#{c.email}">
+					<f:facet name="header">
+						<h:outputText value="email" />
+					</f:facet>
+					<h:outputText value="#{c.email}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="" />
+					</f:facet>
+					<h:form>
+							<h:commandButton
+						action="#{identity.changeVisibility()}" value="UpdateProfile">
+						<f:setPropertyActionListener value="#{c}"
+							target="#{identity.userselected}"></f:setPropertyActionListener>
+					</h:commandButton>
+					</h:form>
+				</h:column>
+</h:dataTable>
+	<h:commandButton action="#{identity.changeVisibility()}"
+				value="update Profile" />
+			<h:panelGrid columns="2" border="2"
+				rendered="#{identity.formVisibility}">
+				<h:outputText value="username" />
+				<h:inputText value="#{identity.userselected.username}" />
+				<h:outputText value="password" />
+				<h:inputText value="#{identity.userselected.password}" />
+				<h:outputText value="email" />
+				<h:inputText value="#{identity.userselected.email}" />
+				<h:commandButton
+					action="#{identity.doSaveOrUpdateUser()}"
+					value="save or update" />
+			</h:panelGrid>
+		</h:form>
+<!-- 	    <h2>welcome <h:outputLabel  value="#{authenticationBean.userMail}" /> </h2> -->
+<!-- <p>A massive open online course (MOOC) is a free Web-based distance learning program that is designed for the participation of large numbers of geographically dispersed students. The concept of MOOCs was introduced in 2008, and became a popular mode of learning in 2012.   </p>			   -->
+<!-- <p>A trainer user can  do all the functionalities that a learner can do, -->
+<!--  which are basically enrolling to courses, but in the other hand, a trainer will have -->
+<!--  the ability to create courses.</p> -->
+<!--  <p> -->
+<!-- There are several steps to be followed in order to create a course; first the trainer -->
+<!-- must submit a course idea that is accompanied with a descriptive idea, and wait -->
+<!-- until a committee member approves it. After that, he can create all the chapters -->
+<!-- relative to this course, with if he wishes some quizzs to support them, and at the  -->
+<!-- end of each course, he have to create a final exam.  -->
+<!-- </p> -->
+	</ui:define>
+	<ui:define name="footerPage">
+	<div id="footer">
+<p>Copyright &copy; 2016-2017 ESPRIT | <a href="#">EX MECHINA</a></p>
+</div>
+	</ui:define>
+  </ui:composition>    
+      

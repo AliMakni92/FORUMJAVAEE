@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<h:form>
+			<h1>list of courses</h1>
+			<h:outputText value="Table is empty!"
+				rendered="#{empty identity.dofindAllUser()}" />
+			<h:dataTable rendered="#{not empty identity.dofindAllUser()}"
+				value="#{identity.dofindAllUser()}" var="c" border="1">
+				<h:column filterBy="#{c.username}">
+					<f:facet name="header">
+						<h:outputText value="username" />
+					</f:facet>
+					<h:outputText value="#{c.username}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:form>
+							<h:commandButton
+						action="#{identity.changeVisibility()}" value="select">
+						<f:setPropertyActionListener value="#{c}"
+							target="#{identity.userselected}"></f:setPropertyActionListener>
+					</h:commandButton>
+					</h:form>
+				</h:column>
+		</h:dataTable>
+			<h:commandButton action="#{identity.changeVisibility()}"
+				value="update Profile" />
+			<h:panelGrid columns="2" border="2"
+				rendered="#{identity.formVisibility}">
+				<h:outputText value="name" />
+				<h:inputText value="#{identity.userselected.username}" />
+				
+				<h:commandButton
+					action="#{identity.doSaveOrUpdateUser()}"
+					value="save or update" />
+			</h:panelGrid>
+		</h:form>
+</body>
+
+</html>

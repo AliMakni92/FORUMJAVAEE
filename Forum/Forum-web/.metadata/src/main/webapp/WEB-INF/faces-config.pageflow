@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14933038770970" configfile="/Forum-web/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="fileUpload.xhtml" x="122" y="178" id="pf14933040463741" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14933040879203" path="fileUpload.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="FileUploadAck.xhtml" x="336" y="178" id="pf14933040463742" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14933040879203" path="FileUploadAck.xhtml"/>
+  <links id="pf14933040879203" target="pf14933040463742" source="pf14933040463741"/>
+</pageflow:Pageflow>
